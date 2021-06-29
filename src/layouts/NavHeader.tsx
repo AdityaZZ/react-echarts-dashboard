@@ -5,16 +5,21 @@
  */
 import { Link } from 'umi';
 import { Menu } from 'antd';
-import { DatabaseOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, AreaChartOutlined } from '@ant-design/icons';
 
-export default function NavHeader() {
+interface NavHeaderProps {
+  activePath: string;
+}
+
+export default function NavHeader({ activePath }: NavHeaderProps) {
   return (
-    <Menu mode="horizontal">
-      <Link to="/dataset">
-        <Menu.Item key="dataset" icon={<DatabaseOutlined />}>
-          数据集
-        </Menu.Item>
-      </Link>
+    <Menu mode="horizontal" activeKey={activePath}>
+      <Menu.Item key="/dataset" icon={<DatabaseOutlined />}>
+        <Link to="/dataset">数据集</Link>
+      </Menu.Item>
+      <Menu.Item key="/dashboard" icon={<AreaChartOutlined />}>
+        <Link to="/dashboard">仪表板</Link>
+      </Menu.Item>
     </Menu>
   );
 }

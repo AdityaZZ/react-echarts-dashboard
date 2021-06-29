@@ -6,5 +6,5 @@
 import './index.less';
 
 export default function NotFound() {
-  return <div className='four-zero-four-page' />
+  return <div className="four-zero-four-page" />;
 }

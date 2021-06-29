@@ -1,18 +1,20 @@
-import { IRouteComponentProps } from 'umi';
+import { connect, IRouteComponentProps, GlobalModelState } from 'umi';
 
 import NavHeader from './NavHeader';
 
-export default function Layout({
-  children,
-  location,
-  route,
-  history,
-  match,
-}: IRouteComponentProps) {
+function Layout(props: IRouteComponentProps) {
+  const {
+    children,
+    global: { activePath },
+  } = props;
   return (
     <>
-      <NavHeader />
-      {children}
+      <NavHeader activePath={activePath} />
+      <div className="page-content">{children}</div>
     </>
   );
 }
+
+export default connect(({ global }: { global: GlobalModelState }) => ({
+  global,
+}))(Layout);
