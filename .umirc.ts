@@ -9,4 +9,14 @@ export default defineConfig({
   theme: {
     '@primary-color': '#6967f6',
   },
+  copy: [
+    {
+      from: 'src/utils/sql-wasm.wasm',
+      to: './',
+    },
+    {
+      from: 'src/utils/bi_test_data.sqlite',
+      to: './',
+    },
+  ],
 });

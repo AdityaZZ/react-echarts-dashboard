@@ -4,28 +4,43 @@
  * @date 2021/6/29
  */
 import React from 'react';
+import { Dispatch, useDispatch } from 'umi';
 import { Radio } from 'antd';
-import { DatasetDataModel } from 'umi';
+
+import { BI_TABLES } from '@/utils/config';
 
 interface DatasetSelectorProps {
-  datasetList: DatasetDataModel[];
-  activeDatasetId: number;
+  activeTableName: string;
 }
 
 export default function DatasetSelector({
-  activeDatasetId,
-  datasetList,
+  activeTableName,
 }: DatasetSelectorProps) {
+  const dispatch: Dispatch = useDispatch();
+
+  const handleRadioChange = (value: string) => {
+    dispatch({
+      type: 'datasetModel/updateActiveTableName',
+      payload: {
+        activeTableName: value,
+      },
+    });
+  };
+
   const renderRadio = () => {
-    return datasetList.map((dataset) => (
-      <Radio.Button key={dataset.id} value={dataset.id}>
-        {dataset.name}
+    return BI_TABLES.map((tableName) => (
+      <Radio.Button key={tableName} value={tableName}>
+        {tableName}
       </Radio.Button>
     ));
   };
 
   return (
-    <Radio.Group value={activeDatasetId} buttonStyle="solid">
+    <Radio.Group
+      onChange={(e) => handleRadioChange(e.target.value)}
+      value={activeTableName}
+      buttonStyle="solid"
+    >
       {renderRadio()}
     </Radio.Group>
   );

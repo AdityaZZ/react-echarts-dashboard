@@ -10,30 +10,32 @@ import DatasetSelector from './datasetSelector';
 import DatasetTable from './datasetTable';
 
 interface DatasetProps extends ConnectProps {
-  dataset: DatasetModelState;
+  datasetModel: DatasetModelState;
   loading: boolean;
 }
 
 function Dataset(props: DatasetProps) {
   const {
     loading,
-    dataset: { datasetList = [], activeDatasetId, activeDatasetRecord = {} },
+    datasetModel: { activeTableName, queryExecResult },
   } = props;
-  console.log(props);
   return (
     <Spin spinning={loading}>
-      <DatasetSelector
-        activeDatasetId={activeDatasetId}
-        datasetList={datasetList}
-      />
-      <DatasetTable activeDatasetRecord={activeDatasetRecord} />
+      <DatasetSelector activeTableName={activeTableName} />
+      <DatasetTable queryExecResult={queryExecResult} />
     </Spin>
   );
 }
 
 export default connect(
-  ({ dataset, loading }: { dataset: DatasetModelState; loading: Loading }) => ({
-    dataset,
-    loading: loading.models.dataset,
+  ({
+    datasetModel,
+    loading,
+  }: {
+    datasetModel: DatasetModelState;
+    loading: Loading;
+  }) => ({
+    datasetModel,
+    loading: loading.models.datasetModel,
   }),
 )(Dataset);
